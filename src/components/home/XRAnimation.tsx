@@ -1,6 +1,5 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import { motion } from 'framer-motion';
 import { Suspense } from 'react';
 import { Box, Sphere } from '@react-three/drei';
 
@@ -17,18 +16,6 @@ function VRScene() {
   );
 }
 
-function LoadingSpinner() {
-  return (
-    <motion.div 
-      className="absolute inset-0 flex items-center justify-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-    </motion.div>
-  );
-}
 
 export default function XRAnimation() {
   return (
@@ -40,18 +27,9 @@ export default function XRAnimation() {
         <Suspense fallback={null}>
           <ambientLight intensity={0.5} />
           <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-          <motion.group
-            animate={{
-              rotateY: 360,
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          >
+          <group>
             <VRScene />
-          </motion.group>
+          </group>
           <OrbitControls 
             enableZoom={false}
             enablePan={false}
